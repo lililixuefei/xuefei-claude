@@ -12,6 +12,7 @@ xuefei-claude/
 │   ├── app.js          # 主应用入口
 │   └── vendor/         # 第三方库
 ├── index.html          # 主页面
+├── snake.html          # 🐍 贪吃蛇游戏
 ├── package.json        # 项目配置
 ├── webpack.common.js   # webpack 通用配置
 ├── webpack.config.dev.js    # 开发环境配置
@@ -65,6 +66,25 @@ npm run build
 - HTML5 Boilerplate 基础模板
 - 响应式 viewport 配置
 - 完整的 favicon 和图标支持
+- 🐍 **贪吃蛇游戏** - 经典的贪吃蛇游戏，支持计分、最高分记录和渐快速度
+
+## 游戏
+
+### 贪吃蛇
+
+直接在浏览器中打开 `snake.html` 即可游玩！
+
+**操作说明：**
+- `↑ ↓ ← →` 方向键控制蛇的移动
+- `空格键` 暂停/继续游戏
+- 吃到食物得分，速度会逐渐加快
+- 撞墙或撞到自己身体则游戏结束
+
+**特性：**
+- 本地存储最高分
+- 蛇头带眼睛动画
+- 食物发光效果
+- 游戏速度随分数增加
 
 ## 许可证
 
