@@ -1,0 +1,266 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
+  padding: 20px;
+}
+
+.game-container {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 30px 40px;
+  border-radius: 24px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  max-width: 700px;
+  width: 100%;
+}
+
+h1 {
+  color: #fff;
+  margin-bottom: 20px;
+  font-size: 2.8em;
+  text-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+  letter-spacing: 2px;
+}
+
+/* 难度选择器 */
+.difficulty-selector {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.difficulty-selector span {
+  color: #fff;
+  font-size: 1em;
+  margin-right: 10px;
+}
+
+.diff-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 8px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9em;
+}
+
+.diff-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.diff-btn.active {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  border-color: #4ecdc4;
+  box-shadow: 0 0 15px rgba(78, 205, 196, 0.4);
+}
+
+.diff-btn[data-diff="easy"].active {
+  background: linear-gradient(135deg, #56ab2f, #a8e063);
+  border-color: #56ab2f;
+}
+
+.diff-btn[data-diff="medium"].active {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  border-color: #4ecdc4;
+}
+
+.diff-btn[data-diff="hard"].active {
+  background: linear-gradient(135deg, #f093fb, #f5576c);
+  border-color: #f093fb;
+}
+
+.diff-btn[data-diff="expert"].active {
+  background: linear-gradient(135deg, #ff416c, #ff4b2b);
+  border-color: #ff416c;
+}
+
+/* 计分板 */
+.score-board {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.score, .high-score, .speed {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 12px 25px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 1.1em;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.score span, .high-score span, .speed span {
+  color: #4ecdc4;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+/* 画布区域 */
+.canvas-wrapper {
+  position: relative;
+  display: inline-block;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 0 40px rgba(78, 205, 196, 0.2);
+}
+
+canvas {
+  display: block;
+  background: #0d1117;
+  border: 3px solid rgba(78, 205, 196, 0.3);
+  border-radius: 12px;
+}
+
+/* 游戏状态遮罩 */
+.game-over, .pause-screen, .start-screen {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(5px);
+  color: #fff;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+}
+
+.game-over h2 {
+  color: #ff6b6b;
+  margin-bottom: 15px;
+  font-size: 2.5em;
+  text-shadow: 0 0 20px rgba(255, 107, 107, 0.5);
+}
+
+.pause-screen h2 {
+  color: #ffd93d;
+  margin-bottom: 15px;
+  font-size: 2.5em;
+}
+
+.start-screen h2 {
+  color: #4ecdc4;
+  margin-bottom: 15px;
+  font-size: 2.5em;
+}
+
+.game-over p, .pause-screen p, .start-screen p {
+  margin: 8px 0;
+  font-size: 1.2em;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* 控制按钮 */
+.btn {
+  background: linear-gradient(135deg, #4ecdc4, #44a08d);
+  color: #fff;
+  border: none;
+  padding: 14px 35px;
+  font-size: 1.1em;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  font-weight: bold;
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+.btn:hover {
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 8px 25px rgba(78, 205, 196, 0.4);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+/* 控制说明 */
+.controls {
+  margin-top: 25px;
+  color: #fff;
+}
+
+.control-row {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 5px 0;
+}
+
+.key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 1.2em;
+  font-weight: bold;
+  box-shadow: 0 4px 0 rgba(255, 255, 255, 0.1);
+}
+
+.key.small {
+  width: auto;
+  padding: 0 15px;
+  font-size: 0.9em;
+}
+
+.controls p {
+  margin: 12px 0;
+  font-size: 1em;
+  opacity: 0.8;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .game-container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2em;
+  }
+
+  canvas {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    max-height: 400px;
+  }
+
+  .score-board {
+    gap: 10px;
+  }
+
+  .score, .high-score, .speed {
+    padding: 10px 15px;
+    font-size: 0.9em;
+  }
+}
